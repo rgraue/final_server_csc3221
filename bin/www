@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('node-express-mongodb-2021:server');
+var debug = require('debug')('final_csc3221:server');
 var http = require('http');
 
 /**
@@ -14,6 +14,7 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+console.log(port)
 
 /**
  * Create HTTP server.
