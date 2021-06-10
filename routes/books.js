@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let bookSchema = require('../models/book')
 
+// get method for all books
 router.get('/', (request, response, next)=>{
     let title = request.query['title']
     if (title){
@@ -28,6 +29,7 @@ router.get('/', (request, response, next)=>{
     }
 });
 
+// get mothod with given _id
 router.get('/:id', (request, response, next)=>{
     bookSchema.findById({"_id": request.params.id}, (error, result) =>{
         if (error){
@@ -40,6 +42,7 @@ router.get('/:id', (request, response, next)=>{
     });
 });
 
+// post method for book collection
 router.post('/', (request, response, next) =>{
     let bodyJson = request.body;
     console.log(request.body)
@@ -64,9 +67,6 @@ router.post('/', (request, response, next) =>{
     }
 });
 
-function HandleError(response, reason, message, code){
-    console.log('ERROR: ' + reason);
-    response.status(code || 500).json({"error": message});
-}
+
 
 module.exports = router;

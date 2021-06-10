@@ -9,6 +9,7 @@ var logger = require('morgan');
 let db= require('./db')
 
 let bookRouter = require('./routes/books')
+let authorRouter = require('./routes/author')
 
 let app = express();
 
@@ -29,6 +30,7 @@ app.use((request, response, next) => {
 
   //Routers
 app.use('/api/books', bookRouter);
+app.use('/api/authors', authorRouter)
 
 app.use(function(req, res, next) {
     next(createError(404));
