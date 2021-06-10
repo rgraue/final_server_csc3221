@@ -11,4 +11,4 @@ let bookSchema = new schema({
     price : Number
 })
 
-module.exports = mongoose.model('Book', bookSchema)
+module.exports = mongoose.model('Book', bookSchema, 'book')

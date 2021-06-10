@@ -3,25 +3,25 @@ let router = express.Router();
 let bookSchema = require('../models/book')
 
 router.get('/', (request, response, next)=>{
-    let tile = request.query['title'];
+    let title = request['title']
     if (title){
         bookSchema
             .find({"title": title})
-            .exec( (error, books) =>{
+            .exec( (error, book) =>{
                if (error){
                    response.send({"error": error});
                }else{
-                   response.send(books);
+                   response.send(book);
                }
             });
     }else{
         bookSchema
             .find()
-            .exec( (error, books) =>{
+            .exec( (error, book) =>{
                 if (error){
                     response.send({"error": error});
                 }else{
-                    response.send(books);
+                    response.send(book);
                 }
             });
     }
