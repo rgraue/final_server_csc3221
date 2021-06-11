@@ -45,7 +45,7 @@ router.get('/:id', (request, response, next)=>{
 // post method for book collection
 router.post('/', (request, response, next) =>{
     let bodyJson = request.body;
-    console.log(request.body)
+    //console.log(request.body)
     if (!bodyJson.title || !bodyJson.author){
         HandleError(response, 'Missing Information', 'Form Data Missing', 500);
     } else {
@@ -66,6 +66,30 @@ router.post('/', (request, response, next) =>{
         })
     }
 });
+
+router.patch('/:id', (request, response, next) =>{
+    bookSchema.findById(request.params.id, (error, result)=>{
+        if (error){
+            response.status(500).send(error);
+        } else if (result){
+            if (request.body._id){
+                delete request.body._id;
+            }
+            for (field in request.body){
+                result[field] = request.body[field];
+            }
+            result.save((error, book) =>{
+                if (error){
+                    response.status(500).send(error);
+                }
+                response.send(book);
+            });
+        }else{
+            response.status(404).send({"id":request.params.id, "error":"id not found"});
+        }
+    });
+    
+})
 
 
 

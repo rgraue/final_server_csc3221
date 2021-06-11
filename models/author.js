@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let schema = mongoose.schema;
+let schema = mongoose.Schema;
 
 let authorSchema = new schema({
     name : String,

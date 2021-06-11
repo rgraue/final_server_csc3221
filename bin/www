@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('final_csc3221:server');
+var debug = require('debug')('final_server_csc3221:server');
 var http = require('http');
 
 /**
