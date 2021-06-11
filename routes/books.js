@@ -109,6 +109,9 @@ router.delete('/:id', (request, response, next)=>{
     });
 });
 
-
+function HandleError(response, reason, message, code){
+    console.log('ERROR: ' + reason);
+    response.status(code || 500).json({"error": message});
+}
 
 module.exports = router;
