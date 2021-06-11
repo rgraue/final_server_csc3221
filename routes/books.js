@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 let bookSchema = require('../models/book')
 
-// get method for all books
+// handles get request, returns all books or search by title
 router.get('/', (request, response, next)=>{
     let title = request.query['title']
     if (title){
@@ -29,7 +29,7 @@ router.get('/', (request, response, next)=>{
     }
 });
 
-// get mothod with given _id
+// hnaldes get method for a single book using an id
 router.get('/:id', (request, response, next)=>{
     bookSchema.findById({"_id": request.params.id}, (error, result) =>{
         if (error){
@@ -42,7 +42,7 @@ router.get('/:id', (request, response, next)=>{
     });
 });
 
-// post method for book collection
+// handles post requests
 router.post('/', (request, response, next) =>{
     let bodyJson = request.body;
     //console.log(request.body)
@@ -67,6 +67,7 @@ router.post('/', (request, response, next) =>{
     }
 });
 
+// handles patch requests for given id
 router.patch('/:id', (request, response, next) =>{
     bookSchema.findById(request.params.id, (error, result)=>{
         if (error){
@@ -88,8 +89,25 @@ router.patch('/:id', (request, response, next) =>{
             response.status(404).send({"id":request.params.id, "error":"id not found"});
         }
     });
-    
 })
+
+// handles delete request for given id
+router.delete('/:id', (request, response, next)=>{
+    bookSchema.findById(request.params.id, (error, result)=>{
+        if (error){
+            response.status(500).send(error)
+        }else if (result){
+            result.remove((error)=>{
+                if (error){
+                    response.status(500).send(error);
+                }
+                response.send({"deletedBookId":request.params.id});
+            });
+        } else {
+            response.status(404).send({"id":request.params.id, "error":"Book not found"});
+        }
+    });
+});
 
 
 
