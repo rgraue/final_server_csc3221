@@ -27,9 +27,9 @@ router.get('/', (request, response, next) =>{
 
 // get for id param
 router.get('/:id', (request, response, next) =>{
-    authorSchema.findById({'_id':request.params.id}, (error, result) =>{
+    authorSchema.findById({"_id":request.params.id}, (error, result) =>{
         if (error){
-            response.send({'error':error});
+            response.status(500).send(error);
         }else if (result){
             response.send(result);
         } else {
